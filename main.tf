@@ -6,7 +6,7 @@ resource "random_password" "password" {
 
 
 resource "aws_ssm_parameter" "team3db" {
-  name  = "/devops/us-east-1/passwords/team3db-cluster"
+  name  = var.aws_ssm_parameter_name
   type  = "SecureString"
   value = random_password.password.result
 }
