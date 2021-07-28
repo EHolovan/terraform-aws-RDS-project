@@ -10,7 +10,7 @@ main.tf - creates RDS DB instance
 module "db" {
   source  = "maxat2416/RDS-project/aws"
   version = "1.0.0"
-}
+
 
   name           = "rds_db_team3_are_the_best"
   engine         = "aurora"
@@ -24,7 +24,7 @@ module "db" {
   allowed_cidr_blocks     = ["10.20.0.0/20"]
 
   apply_immediately   = true
-  
+
   aws_ssm_parameter_name = "/devops/us-east-1/passwords/team3db-cluster"
 
 
