@@ -1,5 +1,5 @@
 module "db" {
-  source  = "../"
+  source  = "maxat2416/RDS-project/aws"
   name           = "rds_db_team3_are_the_best"
   engine         = "aurora"
   engine_version = "5.6.10a"
@@ -9,6 +9,6 @@ module "db" {
   allowed_security_groups = ["sg-12345678"]
   allowed_cidr_blocks     = ["10.20.0.0/20"]
   aws_ssm_parameter_name = "/devops/us-east-1/passwords/team3db-cluster"
+  aws_route53_zone = "guldaray.com"
   region = "us-east-1"
-  aws_route53_zone = "awsmaxat.com"
 }
