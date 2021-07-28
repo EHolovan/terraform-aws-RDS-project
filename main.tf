@@ -15,10 +15,10 @@ resource "aws_ssm_parameter" "team3db" {
 
 resource "aws_rds_cluster" "default" {
   cluster_identifier   = "dbname"
-  engine               = "aurora"
-  engine_version       = "5.6.10a"
-  database_name        = "dbname"
-  master_username      = "team3db"
+  engine               = var.engine
+  engine_version       = var.engine_version
+  database_name        = var.database_name
+  master_username      = var.master_username
   master_password      = random_password.password.result
   db_subnet_group_name = aws_db_subnet_group.default.name
   skip_final_snapshot  = true
@@ -28,38 +28,34 @@ resource "aws_rds_cluster" "default" {
 }
 
 resource "aws_rds_cluster_instance" "cluster_instances" {
-  count              = 1
-  identifier         = "aurora-cluster-demo-${count.index + 1}"
+  identifier         = "aurora-cluster-demo"
   cluster_identifier = aws_rds_cluster.default.cluster_identifier
-  instance_class     = "db.r4.large"
+  instance_class     = var.instance_class
   engine_version     = aws_rds_cluster.default.engine_version
   engine             = aws_rds_cluster.default.engine
 }
 
 
 resource "aws_rds_cluster_instance" "cluster_instances-reader1" {
-  count              = 1
-  identifier         = "aurora-cluster-demo-reader1-${count.index + 1}"
+  identifier         = "aurora-cluster-demo-reader1"
   cluster_identifier = aws_rds_cluster.default.cluster_identifier
-  instance_class     = "db.r4.large"
-  engine_version     = "5.6.10a"
-  engine             = "aurora"
+  instance_class     = var.instance_class
+  engine_version     = var.engine_version
+  engine             = var.engine
 }
 resource "aws_rds_cluster_instance" "cluster_instances-reader2" {
-  count              = 1
-  identifier         = "aurora-cluster-demo-reader2-${count.index + 1}"
+  identifier         = "aurora-cluster-demo-reader2"
   cluster_identifier = aws_rds_cluster.default.cluster_identifier
-  instance_class     = "db.r4.large"
-  engine_version     = "5.6.10a"
-  engine             = "aurora"
+  instance_class     = var.instance_class
+  engine_version     = var.engine_version
+  engine             = var.engine
 }
 resource "aws_rds_cluster_instance" "cluster_instances-reader3" {
-  count              = 1
-  identifier         = "aurora-cluster-demo-reader3-${count.index + 1}"
+  identifier         = "aurora-cluster-demo-reader3"
   cluster_identifier = aws_rds_cluster.default.cluster_identifier
-  instance_class     = "db.r4.large"
-  engine_version     = "5.6.10a"
-  engine             = "aurora"
+  instance_class     = var.instance_class
+  engine_version     = var.engine_version
+  engine             = var.engine
 }
 
 

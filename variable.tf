@@ -21,3 +21,24 @@ variable "database_name" {
 variable "master_username" {
   default = "team3db"
 }
+variable "name" {
+  type    = string
+}
+variable "vpc_id" {
+  type    = string
+}
+variable "subnet_ids" {
+  type    = list
+}
+variable "allowed_security_groups" {
+  type    = list
+}
+variable "allowed_cidr_blocks" {
+  type    = list
+}
+variable "region" {
+  type    = string
+}
+variable "aws_route53_zone" {
+  type    = string
+}

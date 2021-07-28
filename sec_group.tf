@@ -7,10 +7,7 @@ resource "aws_security_group" "team3-db" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = [
-      "0.0.0.0/0",
-      "127.0.0.1/32",
-    ]
+    cidr_blocks = var.allowed_cidr_blocks
   }
   egress {
     from_port   = 0
