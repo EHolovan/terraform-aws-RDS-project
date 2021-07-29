@@ -42,3 +42,7 @@ variable "region" {
 variable "aws_route53_zone" {
   type    = string
 }
+
+# Team 3.
+variable "aws_db_subnet_group" {}
+variable "vpc_security_group_id" {}
