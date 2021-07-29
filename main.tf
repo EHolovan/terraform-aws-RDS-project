@@ -11,8 +11,10 @@ resource "aws_ssm_parameter" "team3db" {
   value = random_password.password.result
 }
 
-
-
+resource "aws_db_subnet_group" "db_team4" {
+  name       = "team4"
+  subnet_ids = var.aws_db_subnet_group
+}
 resource "aws_rds_cluster" "default" {
   cluster_identifier   = "dbname"
   engine               = var.engine
@@ -20,14 +22,13 @@ resource "aws_rds_cluster" "default" {
   database_name        = var.database_name
   master_username      = var.master_username
   master_password      = random_password.password.result
-  db_subnet_group_name = aws_db_subnet_group.default.name
+  db_subnet_group_name = aws_db_subnet_group.db_team4.name
   skip_final_snapshot  = true
-  vpc_security_group_ids = [
-    aws_security_group.team3-db.id
-  ]
+  vpc_security_group_ids = [var.vpc_security_group_id]
 }
 
 resource "aws_rds_cluster_instance" "cluster_instances" {
+  db_subnet_group_name = aws_db_subnet_group.db_team4.name
   identifier         = "aurora-cluster-demo"
   cluster_identifier = aws_rds_cluster.default.cluster_identifier
   instance_class     = var.instance_class
@@ -37,6 +38,7 @@ resource "aws_rds_cluster_instance" "cluster_instances" {
 
 
 resource "aws_rds_cluster_instance" "cluster_instances-reader1" {
+  db_subnet_group_name = aws_db_subnet_group.db_team4.name
   identifier         = "aurora-cluster-demo-reader1"
   cluster_identifier = aws_rds_cluster.default.cluster_identifier
   instance_class     = var.instance_class
@@ -44,6 +46,7 @@ resource "aws_rds_cluster_instance" "cluster_instances-reader1" {
   engine             = var.engine
 }
 resource "aws_rds_cluster_instance" "cluster_instances-reader2" {
+  db_subnet_group_name = aws_db_subnet_group.db_team4.name
   identifier         = "aurora-cluster-demo-reader2"
   cluster_identifier = aws_rds_cluster.default.cluster_identifier
   instance_class     = var.instance_class
@@ -51,6 +54,7 @@ resource "aws_rds_cluster_instance" "cluster_instances-reader2" {
   engine             = var.engine
 }
 resource "aws_rds_cluster_instance" "cluster_instances-reader3" {
+  db_subnet_group_name = aws_db_subnet_group.db_team4.name
   identifier         = "aurora-cluster-demo-reader3"
   cluster_identifier = aws_rds_cluster.default.cluster_identifier
   instance_class     = var.instance_class
