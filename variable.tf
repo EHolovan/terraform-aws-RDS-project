@@ -47,4 +47,4 @@ variable "master_password" {}
 variable "aws_db_subnet_group_name" {}
 variable "aws_db_subnet_group" {}
 variable "vpc_security_group_id" {}
-variable "publicly_accessible" {}
+variable "aws_cluster_identifier" {}

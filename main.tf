@@ -1,8 +1,8 @@
-resource "random_password" "password" {
-  length           = 30
-  special          = false
-  override_special = "_%@"
-}
+# resource "random_password" "password" {
+#   length           = 30
+#   special          = false
+#   override_special = "_%@"
+# }
 # resource "aws_ssm_parameter" "team3db" {
 #   name  = var.aws_ssm_parameter_name
 #   type  = "SecureString"
@@ -13,7 +13,7 @@ resource "aws_db_subnet_group" "db_team4" {
   subnet_ids = var.aws_db_subnet_group
 }
 resource "aws_rds_cluster" "default" {
-  cluster_identifier   = "dbname"
+  cluster_identifier   = var.aws_cluster_identifier
   engine               = var.engine
   engine_version       = var.engine_version
   database_name        = var.database_name
@@ -31,7 +31,6 @@ resource "aws_rds_cluster_instance" "cluster_instances" {
   instance_class     = var.instance_class
   engine_version     = aws_rds_cluster.default.engine_version
   engine             = aws_rds_cluster.default.engine
-  publicly_accessible = var.publicly_accessible
 }
 resource "aws_rds_cluster_instance" "cluster_instances-writer" {
   db_subnet_group_name = aws_db_subnet_group.db_team4.name
@@ -41,17 +40,17 @@ resource "aws_rds_cluster_instance" "cluster_instances-writer" {
   engine_version     = var.engine_version
   engine             = var.engine
 }
-resource "aws_rds_cluster_instance" "cluster_instances-reader-1" {
+resource "aws_rds_cluster_instance" "cluster_instances-reader1" {
   db_subnet_group_name = aws_db_subnet_group.db_team4.name
-  identifier         = "aurora-cluster-demo-reader-1"
+  identifier         = "aurora-cluster-demo-reader1"
   cluster_identifier = aws_rds_cluster.default.cluster_identifier
   instance_class     = var.instance_class
   engine_version     = var.engine_version
   engine             = var.engine
 }
-resource "aws_rds_cluster_instance" "cluster_instances-reader-2" {
+resource "aws_rds_cluster_instance" "cluster_instances-reader2" {
   db_subnet_group_name = aws_db_subnet_group.db_team4.name
-  identifier         = "aurora-cluster-demo-reader-2"
+  identifier         = "aurora-cluster-demo-reader2"
   cluster_identifier = aws_rds_cluster.default.cluster_identifier
   instance_class     = var.instance_class
   engine_version     = var.engine_version

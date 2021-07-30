@@ -34,7 +34,7 @@ resource "aws_route53_record" "read_instance2" {
   type    = "CNAME"
   ttl     = "300"
   records = [
-    aws_rds_cluster_instance.cluster_instances-reader-1.endpoint
+    aws_rds_cluster_instance.cluster_instances-reader1.endpoint
   ]
 }
 resource "aws_route53_record" "read_instance3" {
@@ -43,6 +43,6 @@ resource "aws_route53_record" "read_instance3" {
   type    = "CNAME"
   ttl     = "300"
   records = [
-   aws_rds_cluster_instance.cluster_instances-reader-2.endpoint
+   aws_rds_cluster_instance.cluster_instances-reader2.endpoint
   ]
 }
